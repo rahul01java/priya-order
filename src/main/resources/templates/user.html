@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h1>The select element</h1>
+
+<p>The select element is used to create a drop-down list.</p>
+
+<form>
+  <label for="cars">Type Of Order:</label><br>
+  <select name="selest" id="typeoforder">
+    <option value="INSTALLATION WORK">INSTALLATION WORK</option>
+    <option value="ONE DAY VISIT">ONE DAY VISIT</option>
+    <option value="AMC MONTHLY VISIT">AMC MONTHLY VISIT</option>
+    <option value="AMC QUTRLY VISIT">AMC QUTRLY VISIT/ARC</option>
+  </select>
+   <br>
+  <form>
+  <label for="fname">ORDER VALUE:</label><br>
+  <input type="text" id="orderno" name="fname" value=""><br>
+  <label for="fname">ORDER VALUE:</label><br>
+  <input type="text" id="ordervalue" name="fname" value=""><br>
+  <label for="lname">ORDER DATE</label><br>
+  <input type="text" id="orderdate" name="lname" value=""><br>
+   <label for="fname">SERVICE START DATE:</label><br>
+  <input type="text" id="servicestartdate" name="fname" value=""><br>
+  <label for="lname">SERVICE END DATE:</label><br>
+  <input type="text" id="serviceenddate" name="lname" value=""><br>
+   <label for="lname">NEXT DUE DATE:</label><br>
+  <input type="text" id="nextduedate" name="lname" value=""><br><br>
+
+  <button onclick="login()">Submit</button>
+</form>
+  <br><br>
+  
+</form>
+<script>
+
+function login() {
+  xhr = new XMLHttpRequest();
+  var url = "http:localhost:8081/sales";
+
+  xhr.open("POST",url, true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.setRequestHeader("Access-Control-Allow-Origin", "" * "");
+  xhr.setRequestHeader('Access-Control-Allow-Methods', "POST, GET, OPTIONS, DELETE, PUT");
+  xhr.setRequestHeader("Access-Control-Allow-Headers", "Token,append,delete,entries,foreach,get,has,keys,set,values,Authorization");
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+   
+     var json = JSON.parse(xhr.responseText);
+      console.log("json " + json);
+      
+
+  }
+  var typeoforder=document.getElementById("typeoforder");
+  var data = JSON.stringify({
+    
+    "typeoforder": typeoforder,
+	
+     "orderNo":document.getElementById("orderNo"),
+  
+	 "ordervalue":document.getElementById("ordervalue"),
+	
+	 "orderdate":document.getElementById("orderdate"),
+
+	 "servicestartdate":document.getElementById("servicestartdate"),
+
+	 "nextduedate":document.getElementById("nextduedate"),
+
+	 "serviceenddate":document.getElementById("serviceenddate")
+  });
+}
+  xhr.send(data);
+
+}
+
+</script>
+
+</body>
+</html>
